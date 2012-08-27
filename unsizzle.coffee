@@ -34,7 +34,7 @@ unsizzle =
         if classList.length > 0
             classStr += "." + c for c in classList
 
-        return [tag.toLowerCase(), idStr, classStr].join ''
+        return tag.toLowerCase() + idStr + classStr
 
     # Figure out what element the mouse has selected
     getTarget: (evt) ->
