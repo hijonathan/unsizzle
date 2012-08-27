@@ -7,6 +7,7 @@ Given a target-based event, unsizzle will do it's best to build a sizzle selecto
 
 #### TODO
 
+- Better api.
 - If the target element is generic, check if the unsizzled selector returns multiple results (and handle accordingly).
 - Explore doing a .sibling() check.
 - Explore using attributes to strengthen selectors. This can potentially be slow.
