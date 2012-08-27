@@ -3,7 +3,7 @@ unsizzle =
     # Build a CSS selector for the selected element
     buildSelector: (evt) ->
 
-        target = Guider.utils.getTarget evt
+        target = @getTarget evt
 
         sel = []
         hasParent = true
@@ -15,7 +15,7 @@ unsizzle =
             id = t.id
             classes = t.classList
 
-            sel.unshift Guider.utils.joinSelector tag, id, classes
+            sel.unshift @joinSelector tag, id, classes
 
             if id.length or not t.parentElement?
                 hasParent = false
