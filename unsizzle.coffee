@@ -31,18 +31,17 @@ unsizzle =
 
         if @hasSiblings node
             position = null
-            similar = []
+            similar = 0
 
             for n in node.parentNode.children
                 sel = @joinSelector n.tagName, n.id, n.classList
+                if n is node
+                    position = similar
                 if sel is selector
-                    similar.push n
+                    similar += 1
 
-            for n, i in similar
-                position = i if n is node
-
-                if position?
-                    return selector + ":eq(#{position})"
+            if position? and similar > 1
+                return selector + ":eq(#{position})"
 
         return selector
 
