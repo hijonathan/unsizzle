@@ -1,4 +1,4 @@
-unsizzle =
+@unsizzle =
 
     # Build a CSS selector for the selected element
     buildSelector: (evt) ->
