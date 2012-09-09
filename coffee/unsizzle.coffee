@@ -15,7 +15,7 @@
             id = t.id
             classes = t.classList
 
-            if id.length or not t.parentElement?
+            if id.length or not (t.parentElement? and t.parentNode isnt document)
                 sel.unshift @getUniqueSelector t
                 hasParent = false
             else
@@ -29,7 +29,7 @@
     getUniqueSelector: (node) ->
         selector = @joinSelector node.tagName, node.id, node.classList
 
-        if @hasSiblings node
+        if node.parentNode isnt document and @hasSiblings node
             position = null
             similar = 0
 
