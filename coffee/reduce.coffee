@@ -1,3 +1,6 @@
+# Given a target node and a selector, unsizzleReduce checks that the selector finds the target.
+# This hasn't been tested.
+
 if window.jQuery?
 
     unsizzleReduce = (target, selector) ->
@@ -5,7 +8,10 @@ if window.jQuery?
         targetLeft = target.offsetLeft
 
         candidates = jQuery selector
-        if candidates.length > 1
+        if candidates.length is 1
+            candidate.offsetTop is targetTop and candidate.offsetLeft is targetLeft
+        
+        else if candidates.length > 1
             position = 0
 
             for index, candidate of candidates
@@ -13,4 +19,7 @@ if window.jQuery?
                     position = index
                     break
 
-            return selector + ":eq(#{position})"
+            selector + ":eq(#{position})"
+
+        else
+            return false
