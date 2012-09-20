@@ -1,10 +1,10 @@
 class @unsizzle
 
     constructor: (obj) ->
-        if @isEvent
-            @event obj
-        else if @isNode obj
-            @node obj
+        if unsizzle::isEvent obj
+            return unsizzle::event obj
+        else if unsizzle::isNode obj
+            return unsizzle::node obj
         else
             return
 
@@ -14,7 +14,7 @@ class @unsizzle
     node: (node) ->
         sel = []
         hasParent = true
-        t = target
+        t = node
 
         # Walk up the dom tree and collect info until we get to an ID or the HTML tag
         while hasParent
@@ -22,7 +22,7 @@ class @unsizzle
             id = t.id
             classes = t.classList
 
-            if id.length or not (t.parentElement? and t.parentNode isnt document)
+            if id.length or not (t.parentElement? and t.parentNode isnt document and t.parentElement.tagName isnt 'HTML')
                 sel.unshift @selector t
                 hasParent = false
             else
@@ -72,7 +72,7 @@ class @unsizzle
         node.parentNode.children.length > 1
 
     isEvent: (obj) ->
-        obj.target?
+        obj.currentTarget?
 
     isNode: (obj) ->
         if typeof Node is "object"
@@ -80,5 +80,5 @@ class @unsizzle
         else
             obj and
             typeof obj is "object" and
-            typeof o.nodeType is "number" and
-            typeof o.nodeName is "string"
+            typeof obj.nodeType is "number" and
+            typeof obj.nodeName is "string"

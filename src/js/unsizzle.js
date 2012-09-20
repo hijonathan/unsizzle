@@ -3,10 +3,10 @@
   this.unsizzle = (function() {
 
     function unsizzle(obj) {
-      if (this.isEvent) {
-        this.event(obj);
-      } else if (this.isNode(obj)) {
-        this.node(obj);
+      if (unsizzle.prototype.isEvent(obj)) {
+        return unsizzle.prototype.event(obj);
+      } else if (unsizzle.prototype.isNode(obj)) {
+        return unsizzle.prototype.node(obj);
       } else {
         return;
       }
@@ -20,12 +20,12 @@
       var classes, hasParent, id, sel, t, tag;
       sel = [];
       hasParent = true;
-      t = target;
+      t = node;
       while (hasParent) {
         tag = t.tagName;
         id = t.id;
         classes = t.classList;
-        if (id.length || !((t.parentElement != null) && t.parentNode !== document)) {
+        if (id.length || !((t.parentElement != null) && t.parentNode !== document && t.parentElement.tagName !== 'HTML')) {
           sel.unshift(this.selector(t));
           hasParent = false;
         } else {
@@ -85,14 +85,14 @@
     };
 
     unsizzle.prototype.isEvent = function(obj) {
-      return obj.target != null;
+      return obj.currentTarget != null;
     };
 
     unsizzle.prototype.isNode = function(obj) {
       if (typeof Node === "object") {
         return obj instanceof Node;
       } else {
-        return obj && typeof obj === "object" && typeof o.nodeType === "number" && typeof o.nodeName === "string";
+        return obj && typeof obj === "object" && typeof obj.nodeType === "number" && typeof obj.nodeName === "string";
       }
     };
 
