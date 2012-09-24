@@ -9,8 +9,8 @@ if window.jQuery?
 
         candidates = jQuery selector
         if candidates.length is 1
-            candidate.offsetTop is targetTop and candidate.offsetLeft is targetLeft
-        
+            return candidate.offsetTop is targetTop and candidate.offsetLeft is targetLeft
+
         else if candidates.length > 1
             position = 0
 
@@ -19,7 +19,8 @@ if window.jQuery?
                     position = index
                     break
 
-            selector + ":eq(#{position})"
+            console.log "Correct selector: ", selector + ":eq(#{position})"
+            return false
 
         else
             return false
