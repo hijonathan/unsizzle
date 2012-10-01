@@ -39,7 +39,6 @@ class @unsizzle
         if node.parentNode isnt document and @hasSiblings node
             similar = position = 0
 
-            debugger
             for n in node.parentNode.children
                 currentSelector = @join n.tagName, n.id, n.classList
                 similar  += 1 if currentSelector is selector
