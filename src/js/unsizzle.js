@@ -37,23 +37,24 @@
     };
 
     unsizzle.prototype.selector = function(node) {
-      var n, position, sel, selector, similar, _i, _len, _ref;
+      var currentSelector, n, position, selector, similar, _i, _len, _ref;
       selector = this.join(node.tagName, node.id, node.classList);
       if (node.parentNode !== document && this.hasSiblings(node)) {
-        position = null;
-        similar = 0;
+        similar = position = 0;
+        debugger;
         _ref = node.parentNode.children;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           n = _ref[_i];
-          sel = this.join(n.tagName, n.id, n.classList);
-          if (n === node) {
-            position = similar;
-          }
-          if (sel === selector) {
+          currentSelector = this.join(n.tagName, n.id, n.classList);
+          if (currentSelector === selector) {
             similar += 1;
           }
+          if (n === node) {
+            break;
+          }
+          position += 1;
         }
-        if ((position != null) && similar > 1) {
+        if (similar > 1) {
           return selector + (":eq(" + position + ")");
         }
       }
