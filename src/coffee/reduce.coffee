@@ -6,6 +6,9 @@
 
 if window.jQuery?
 
+    # TODO: Optimize without jQuery
+    $ = jQuery
+
     unsizzleReduce = (target, selector) ->
         targetTop = target.offsetTop
         targetLeft = target.offsetLeft
