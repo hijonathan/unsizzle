@@ -139,6 +139,7 @@
         @hasSiblings: hasSiblings
         @isEvent: isEvent
         @isNode: isNode
+        @querySelectorAll: querySelectorAll
 
     hasParent = (node) ->
         node.parentElement? and node.parentNode isnt doc and node.parentElement.tagName isnt 'HTML'
@@ -161,7 +162,7 @@
     querySelectorAll = (sel) ->
         el = doc
         eqRegex = /:eq\([0-9]+\)/
-        result = undefined
+        result = []
 
         # Shim to work with :eq jquery selector.
         if eqRegex.test sel
