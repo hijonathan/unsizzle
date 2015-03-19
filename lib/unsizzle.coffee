@@ -18,9 +18,9 @@
     class unsizzle
 
         constructor: (obj) ->
-            if unsizzle::isEvent obj
+            if isEvent obj
                 return unsizzle::event obj
-            else if unsizzle::isNode obj
+            else if isNode obj
                 return unsizzle::node obj
             else
                 return
@@ -53,7 +53,7 @@
         selector: (node) ->
             selector = @join node.tagName, node.id, node.classList
 
-            if node.parentNode isnt doc and @hasSiblings node
+            if node.parentNode isnt doc and hasSiblings node
                 similar = position = 0
 
                 for n in node.parentNode.children
@@ -83,17 +83,27 @@
 
             return tag.toLowerCase() + idStr + classStr + positionStr
 
-        hasSiblings: (node) ->
-            node.parentNode.children.length > 1
+        @hasSiblings: hasSiblings
 
-        isEvent: (obj) ->
-            obj.currentTarget?
+        @isEvent: isEvent
 
-        isNode: (obj) ->
-            if typeof Node is "object"
-                obj instanceof Node
-            else
-                obj and
-                typeof obj is "object" and
-                typeof obj.nodeType is "number" and
-                typeof obj.nodeName is "string"
+        @isNode: isNode
+
+
+    hasSiblings = (node) ->
+        node.parentNode.children.length > 1
+
+    isEvent = (obj) ->
+        obj.currentTarget?
+
+    isNode = (obj) ->
+        if typeof Node is "object"
+            obj instanceof Node
+        else
+            obj and
+            typeof obj is "object" and
+            typeof obj.nodeType is "number" and
+            typeof obj.nodeName is "string"
+
+
+    return unsizzle
