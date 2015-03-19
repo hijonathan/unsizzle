@@ -17,10 +17,10 @@
 
     # We'll apply weights to different types of selectors and check for dupes
     # when we reach appropriate levels of confidence.
-    UNIQUNESS_THRESHOLD = 2
-    MAX_UNIQUENESS = 5
-    ID_WEIGHT = 4
-    CLASS_WEIGHT = 1
+    UNIQUNESS_THRESHOLD = 0.4
+    MAX_UNIQUENESS = 1
+    ID_WEIGHT = 0.8
+    CLASS_WEIGHT = 0.2
     TAGNAME_WEIGHT = 0
 
     nodeUniqueness = (node) ->
