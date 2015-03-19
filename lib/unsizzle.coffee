@@ -13,7 +13,7 @@
 
 ) @, (root, factory) ->
 
-    doc = @document
+    doc = root.document
 
     # We'll apply weights to different types of selectors and check for dupes
     # when we reach appropriate levels of confidence.
