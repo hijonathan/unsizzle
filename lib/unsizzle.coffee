@@ -139,6 +139,7 @@
         @hasSiblings: hasSiblings
         @isEvent: isEvent
         @isNode: isNode
+        @nodeUniqueness: nodeUniqueness
         @querySelectorAll: querySelectorAll
 
     hasParent = (node) ->
