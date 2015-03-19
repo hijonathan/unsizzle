@@ -1,82 +1,99 @@
-class @unsizzle
+((root, factory) ->
+    # AMD.
+    if typeof define is 'function' and define.amd
+        define -> factory(root)
+    # Node/Commonjs.
+    else if typeof exports isnt undefined
+        factory(root)
+    # Browser global.
+    else
+        root.unsizzle = factory(root)
 
-    constructor: (obj) ->
-        if unsizzle::isEvent obj
-            return unsizzle::event obj
-        else if unsizzle::isNode obj
-            return unsizzle::node obj
-        else
-            return
+    return
 
-    event: (evt) ->
-        @node evt.target
+) @, (root, factory) ->
 
-    node: (node) ->
-        sel = []
-        hasParent = true
-        t = node
+    doc = @document
 
-        # Walk up the dom tree and collect info until we get to an ID or the HTML tag
-        while hasParent
-            tag = t.tagName
-            id = t.id
-            classes = t.classList
+    class unsizzle
 
-            if id.length or not (t.parentElement? and t.parentNode isnt document and t.parentElement.tagName isnt 'HTML')
-                sel.unshift @selector t
-                hasParent = false
+        constructor: (obj) ->
+            if unsizzle::isEvent obj
+                return unsizzle::event obj
+            else if unsizzle::isNode obj
+                return unsizzle::node obj
             else
-                # NOTE: This is being overly specific. Consider doing this only when
-                # nesting is a problem.
-                sel.unshift "> " + @selector(t)
-                t = t.parentElement
+                return
 
-        return sel.join ' '
+        event: (evt) ->
+            @node evt.target
 
-    selector: (node) ->
-        selector = @join node.tagName, node.id, node.classList
+        node: (node) ->
+            sel = []
+            hasParent = true
+            t = node
 
-        if node.parentNode isnt document and @hasSiblings node
-            similar = position = 0
+            # Walk up the dom tree and collect info until we get to an ID or the HTML tag
+            while hasParent
+                tag = t.tagName
+                id = t.id
+                classes = t.classList
 
-            for n in node.parentNode.children
-                currentSelector = @join n.tagName, n.id, n.classList
-                similar  += 1 if currentSelector is selector
-                break if n is node
-                position += 1
+                if id.length or not (t.parentElement? and t.parentNode isnt doc and t.parentElement.tagName isnt 'HTML')
+                    sel.unshift @selector t
+                    hasParent = false
+                else
+                    # NOTE: This is being overly specific. Consider doing this only when
+                    # nesting is a problem.
+                    sel.unshift "> " + @selector(t)
+                    t = t.parentElement
 
-            if similar > 1
-                return selector + ":eq(#{position})"
+            return sel.join ' '
 
-        return selector
+        selector: (node) ->
+            selector = @join node.tagName, node.id, node.classList
 
-    join: (tag, id, classList, position) ->
-        idStr = ""
-        classStr = ""
-        positionStr = ""
+            if node.parentNode isnt doc and @hasSiblings node
+                similar = position = 0
 
-        if id.length
-            idStr = "#" + id
+                for n in node.parentNode.children
+                    currentSelector = @join n.tagName, n.id, n.classList
+                    similar  += 1 if currentSelector is selector
+                    break if n is node
+                    position += 1
 
-        if classList.length > 0
-            classStr += "." + c for c in classList
+                if similar > 1
+                    return selector + ":eq(#{position})"
 
-        if position?
-            positionStr = ":eq(#{position})"
+            return selector
 
-        return tag.toLowerCase() + idStr + classStr + positionStr
+        join: (tag, id, classList, position) ->
+            idStr = ""
+            classStr = ""
+            positionStr = ""
 
-    hasSiblings: (node) ->
-        node.parentNode.children.length > 1
+            if id.length
+                idStr = "#" + id
 
-    isEvent: (obj) ->
-        obj.currentTarget?
+            if classList.length > 0
+                classStr += "." + c for c in classList
 
-    isNode: (obj) ->
-        if typeof Node is "object"
-            obj instanceof Node
-        else
-            obj and
-            typeof obj is "object" and
-            typeof obj.nodeType is "number" and
-            typeof obj.nodeName is "string"
+            if position?
+                positionStr = ":eq(#{position})"
+
+            return tag.toLowerCase() + idStr + classStr + positionStr
+
+        hasSiblings: (node) ->
+            node.parentNode.children.length > 1
+
+        isEvent: (obj) ->
+            obj.currentTarget?
+
+        isNode: (obj) ->
+            if typeof Node is "object"
+                obj instanceof Node
+            else
+                obj and
+                typeof obj is "object" and
+                typeof obj.nodeType is "number" and
+                typeof obj.nodeName is "string"
