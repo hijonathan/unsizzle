@@ -1,7 +1,8 @@
 (function() {
-  var unsizzleReduce;
+  var $, unsizzleReduce;
 
   if (window.jQuery != null) {
+    $ = jQuery;
     unsizzleReduce = function(target, selector) {
       var candidate, candidates, exactSelector, index, match, position, targetLeft, targetTop;
       targetTop = target.offsetTop;
@@ -24,7 +25,7 @@
             break;
           }
         }
-        exactSelector = "" + selector + ":eq(" + position + ")";
+        exactSelector = selector + ":eq(" + position + ")";
         return this.reduce(target, exactSelector);
       } else {
         return {

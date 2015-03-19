@@ -1,7 +1,5 @@
 (function() {
-
   this.unsizzle = (function() {
-
     function unsizzle(obj) {
       if (unsizzle.prototype.isEvent(obj)) {
         return unsizzle.prototype.event(obj);
@@ -37,13 +35,13 @@
     };
 
     unsizzle.prototype.selector = function(node) {
-      var currentSelector, n, position, selector, similar, _i, _len, _ref;
+      var currentSelector, i, len, n, position, ref, selector, similar;
       selector = this.join(node.tagName, node.id, node.classList);
       if (node.parentNode !== document && this.hasSiblings(node)) {
         similar = position = 0;
-        _ref = node.parentNode.children;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          n = _ref[_i];
+        ref = node.parentNode.children;
+        for (i = 0, len = ref.length; i < len; i++) {
+          n = ref[i];
           currentSelector = this.join(n.tagName, n.id, n.classList);
           if (currentSelector === selector) {
             similar += 1;
@@ -61,7 +59,7 @@
     };
 
     unsizzle.prototype.join = function(tag, id, classList, position) {
-      var c, classStr, idStr, positionStr, _i, _len;
+      var c, classStr, i, idStr, len, positionStr;
       idStr = "";
       classStr = "";
       positionStr = "";
@@ -69,8 +67,8 @@
         idStr = "#" + id;
       }
       if (classList.length > 0) {
-        for (_i = 0, _len = classList.length; _i < _len; _i++) {
-          c = classList[_i];
+        for (i = 0, len = classList.length; i < len; i++) {
+          c = classList[i];
           classStr += "." + c;
         }
       }
