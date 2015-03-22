@@ -161,6 +161,9 @@
             typeof obj.nodeName is "string"
 
     querySelectorAll = (sel) ->
+        # TODO: Fix situation in which selector starts with ">". This is not yet
+        # supported by QSA and needs a polyfill.
+        # http://stackoverflow.com/questions/6481612/queryselector-search-immediate-children
         el = doc
         eqRegex = /:eq\([0-9]+\)/
         result = []
