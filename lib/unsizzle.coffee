@@ -183,7 +183,7 @@
 
             # Finish querying any leftovers.
             if groups.length
-                result = el.querySelectorAll groups
+                result = el.querySelectorAll groups.join(' ')
             else
                 # Always return an array.
                 result = [el]
