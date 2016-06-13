@@ -1,0 +1,29 @@
+{
+  "name": "unsizzle",
+  "version": "1.0.0",
+  "description": "Sizzle selector builder",
+  "main": "index.js",
+  "dependencies": {
+    "grunt-coffee": "^0.0.6",
+    "grunt": "^0.4.5",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-jshint": "^0.11.0",
+    "jshint-stylish": "^1.0.1",
+    "load-grunt-tasks": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hijonathan/unsizzle.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hijonathan/unsizzle/issues"
+  },
+  "homepage": "https://github.com/hijonathan/unsizzle#readme"
+}
