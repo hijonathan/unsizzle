@@ -37,16 +37,15 @@ class @unsizzle
         selector = @join node.tagName, node.id, node.classList
 
         if node.parentNode isnt document and @hasSiblings node
-            similar = position = 0
+            similar = 0
 
             for n in node.parentNode.children
                 currentSelector = @join n.tagName, n.id, n.classList
                 similar  += 1 if currentSelector is selector
                 break if n is node
-                position += 1
 
             if similar > 1
-                return selector + ":eq(#{position})"
+                return selector + ":eq(#{similar - 1})"
 
         return selector
 
